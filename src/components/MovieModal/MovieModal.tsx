@@ -19,7 +19,7 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
       }
     };
 
-      document.addEventListener('keydown', handleKeyDown);
+      window.addEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'hidden';
 
     // Cleanup: відновлюємо скрол і видаляємо слухач

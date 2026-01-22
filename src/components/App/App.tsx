@@ -40,11 +40,12 @@ export default function App() {
     }
   };
 
-  const handleMovieSelect = (movieId: number): void => {
-    const movie = movies.find(m => m.id === movieId);
-    if (movie) {
+  const handleMovieSelect = (movie: Movie): void => {
+    // const movie = movies.find(m => m.id === movieId);
+    // if (movie) {
+    //   setSelectedMovie(movie);
+      // }
       setSelectedMovie(movie);
-    }
   };
   const handleCloseModal = (): void => {
     setSelectedMovie(null);
