@@ -4,18 +4,29 @@ import toast from 'react-hot-toast';
 import { fetchMovies } from '../../services/movieService';
 import type { Movie } from '../../types/movie';
 import MovieGrid from '../MovieGrid/MovieGrid';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './App.module.css';
 import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import MovieModal from '../MovieModal/MovieModal';
 
+const STORAGE_KEY = "movies";
+
 export default function App() {
-  const [movies, setMovies] = useState<Movie[]>([]);
+  // const [movies, setMovies] = useState<Movie[]>([]);
+  const [movies, setMovies] = useState<Movie[]>(() => {
+    const savedMovies = localStorage.getItem(STORAGE_KEY);
+    return savedMovies ? JSON.parse(savedMovies) : [];
+  });
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   // const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(movies))
+  }, [movies]);
 
   const handleSearch = async (query: string): Promise<void> => {
     try {
